@@ -26,3 +26,6 @@ Route::get('tries', 'Tries\IndexController@index');
 
 Route::get('about', 'PagesController@about');
 Route::get('contact', 'PagesController@contact');
+
+Route::get('contacts', 'Tries\ContactsController@index');
+Route::get('contacts/{id}', 'Tries\ContactsController@show');

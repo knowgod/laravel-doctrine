@@ -111,6 +111,13 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = EntityManager::find('App\Models\Tries\Article', $id);
+        if (!$article) {
+            return view('tries.article.show', compact('article'));
+        }
+
+        EntityManager::remove($article);
+        EntityManager::flush();
+        return redirect("articles");
     }
 }

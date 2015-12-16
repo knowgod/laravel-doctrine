@@ -7,6 +7,14 @@
 
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <style type="text/css">
+        .action-container li {
+            list-style-type: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 
 <body>

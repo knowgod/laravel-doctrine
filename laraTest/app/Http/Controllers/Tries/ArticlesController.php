@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Tries;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use App\Models\Tries\Article;
-use App\Models\Tries\Tag;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 use Request;
 
@@ -70,13 +68,16 @@ class ArticlesController extends Controller
     public function store(Request $request)
     {
         $input = Request::all();
-        return ($input);
 
-        $article = new Article('Article #' . uniqid(), 'BODY BODY BODY BODY BODY BODY ');
-        $article->addTag(new Tag('newTag'));
+        $article = $this->repository->createOrUpdate($input);
+//        $article->addTag(new Tag('newTag'));
 
         EntityManager::persist($article);
         EntityManager::flush();
+
+        if ($article->getId()) {
+            return redirect("articles/" . $article->getId());
+        }
     }
 
     /**

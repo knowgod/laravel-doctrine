@@ -29,3 +29,9 @@ Route::get('contact', 'PagesController@contact');
 
 Route::get('contacts', 'Tries\ContactsController@index');
 Route::get('contacts/{id}', 'Tries\ContactsController@show');
+
+Route::get('articles', 'Tries\ArticlesController@index');
+Route::get('articles/create', 'Tries\ArticlesController@create');
+Route::get('articles/{id}', 'Tries\ArticlesController@show');
+
+Route::post('articles', 'Tries\ArticlesController@store');

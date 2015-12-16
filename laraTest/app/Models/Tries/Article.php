@@ -56,10 +56,14 @@ class Article
      * @param $title
      * @param $body
      */
-    public function __construct($title, $body)
+    public function __construct($title = null, $body = null)
     {
-        $this->title      = $title;
-        $this->body       = $body;
+        if ($title) {
+            $this->title = $title;
+        }
+        if ($body) {
+            $this->body = $body;
+        }
         $this->created_at = new \DateTime();
 
         $this->tags = new ArrayCollection();
@@ -90,7 +94,7 @@ class Article
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {

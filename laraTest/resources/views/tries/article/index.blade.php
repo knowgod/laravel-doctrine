@@ -2,18 +2,28 @@
 
 @section('content')
     <h1>Articles</h1>
-    <ul>
-        @foreach($articles as $_article)
-            <li style="border: 1px #4cae4c solid;margin: 5px;">
-                <h3>
-                    {{ $_article->getId() }}. <a
-                            href="{{ action('Tries\ArticlesController@show', [$_article->getId()]) }}">{{ $_article->getTitle() }}</a>
-                </h3>
-
-                <p>{{ $_article->getBody() }}</p>
+    <div class="action-container">
+        <ul>
+            <li>
+                <a href="{{ url('articles/create') }}">create new</a>
             </li>
-        @endforeach
-    </ul>
+        </ul>
+    </div>
+
+    <div class="list-container">
+        <ul>
+            @foreach($articles as $_article)
+                <li style="border: 1px #4cae4c solid;margin: 5px;">
+                    <h3>
+                        <span>{{ $_article->getId() }}.</span>
+                        <a href="{{ action('Tries\ArticlesController@show', [$_article->getId()]) }}">{{ $_article->getTitle() }}</a>
+                    </h3>
+
+                    <p>{{ $_article->getBody() }}</p>
+                </li>
+            @endforeach
+        </ul>
+    </div>
 
     <table>
         <tr>

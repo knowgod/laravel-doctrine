@@ -19,15 +19,18 @@ class ArticleRepository extends EntityRepository
     /**
      * Create related entity
      *
-     * @todo Implement Entity Update
-     *
      * @param array $serialized
      * @return \App\Models\Tries\Article
      */
     public function createOrUpdate(array $serialized)
     {
         $entityName = $this->getEntityName();
-        $entity     = new $entityName();
+
+        if (isset($serialized['id'])) {
+            $entity = $this->getEntityManager()->find($entityName, $serialized['id']);
+        } else {
+            $entity = new $entityName();
+        }
 
         foreach ($serialized as $key => $val) {
             $method = 'set' . ucfirst($key);
@@ -37,4 +40,5 @@ class ArticleRepository extends EntityRepository
         }
         return $entity;
     }
+
 }

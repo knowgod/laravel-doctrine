@@ -76,7 +76,7 @@ class ArticlesController extends Controller
         EntityManager::flush();
 
         if ($article->getId()) {
-            return redirect("articles/" . $article->getId());
+            return redirect(url("articles", [$article->getId()]));
         }
     }
 
@@ -88,7 +88,11 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = EntityManager::find('App\Models\Tries\Article', $id);
+        if (!$article) {
+            return view('tries.article.show', compact('article'));
+        }
+        return view('tries.article.create', compact('article'));
     }
 
     /**

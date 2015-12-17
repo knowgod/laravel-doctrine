@@ -7,7 +7,7 @@
 @section('content')
     @if($article)
         <div class="content">
-            <h1>{{ $article->getTitle() }}</h1>
+            <h1>{{ $article->getId() }}. {{ $article->getTitle() }}</h1>
 
             <p>{{ $article->getBody() }}</p>
             {{--<h3>Tags:</h3>--}}
@@ -16,9 +16,9 @@
 
             <div class="action-container">
                 <ul>
-                    {{--<li>--}}
-                        {{--<a href="{{ url('articles/edit',['id' => $article->getId()]) }}">Edit</a>--}}
-                    {{--</li>--}}
+                    <li>
+                        <a href="{{ url('articles/edit',['id' => $article->getId()]) }}">Edit</a>
+                    </li>
                     <li>
                         <a href="{{ url('articles/delete',['id' => $article->getId()]) }}">Delete</a>
                     </li>

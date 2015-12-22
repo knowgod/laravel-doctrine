@@ -10,8 +10,9 @@
             <h1>{{ $article->getId() }}. {{ $article->getTitle() }}</h1>
 
             <p>{{ $article->getBody() }}</p>
-            {{--<h3>Tags:</h3>--}}
-            {{--    <p> {{ $article-> }}</p>--}}
+
+            @include('tries.tag.list')
+
             <address>at: {{ $article->getCreatedAt() }}</address>
 
             <div class="action-container">

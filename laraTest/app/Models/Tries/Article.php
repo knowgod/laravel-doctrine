@@ -70,6 +70,14 @@ class Article
     }
 
     /**
+     * @return Tag[]|ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
      * @return mixed
      */
     public function getBody()

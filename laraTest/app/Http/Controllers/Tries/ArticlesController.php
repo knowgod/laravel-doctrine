@@ -56,7 +56,8 @@ class ArticlesController extends Controller
     public function show($id)
     {
         $article = EntityManager::find('App\Models\Tries\Article', $id);
-        return view('tries.article.show', compact('article'));
+        $tags    = $article->getTags();
+        return view('tries.article.show', compact('article', 'tags'));
     }
 
     /**

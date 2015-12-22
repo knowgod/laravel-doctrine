@@ -31,4 +31,4 @@
         </div>
     @endif
     <a href="{{ url('articles') }}">&leftarrow;&nbsp;back</a>
-@stop
+@endsection

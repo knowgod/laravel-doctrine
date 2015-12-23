@@ -30,7 +30,7 @@ class Tag
     protected $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Article", inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Article", inversedBy="tags")
      * @var Article
      */
     protected $article;

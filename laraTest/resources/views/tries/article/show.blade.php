@@ -37,5 +37,5 @@
             <h1>Article not found</h1>
         </div>
     @endif
-    <a href="{{ url('articles') }}">&leftarrow;&nbsp;back</a>
+    <a href="{{ url('articles') }}">&leftarrow;&nbsp;back to list</a>
 @endsection

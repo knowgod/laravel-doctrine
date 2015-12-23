@@ -34,7 +34,7 @@ class ArticlesController extends Controller
     public function index()
     {
         $articles = $this->repository->paginateAll(3);
-        return view('tries.article.index', compact('articles'));
+        return view('tries.article.list', compact('articles'));
     }
 
     /**

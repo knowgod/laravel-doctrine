@@ -28,7 +28,9 @@ class ArticleRepository extends EntityRepository
 
         if (isset($serialized['id'])) {
             $entity = $this->getEntityManager()->find($entityName, $serialized['id']);
-        } else {
+        }
+
+        if (!isset($entity)) {
             $entity = new $entityName();
         }
 

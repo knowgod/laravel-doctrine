@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="content">
-        @if($article)
+        @if(isset($article))
             <h1>Edit Article #{{ $article->getId() }}</h1>
         @else
             <h1>Write a New Article</h1>
@@ -15,7 +15,7 @@
 
         {!! Form::open(['url'=>'articles']) !!}
 
-        @if($article)
+        @if(isset($article))
             <div class="form-group">
                 {!! Form::hidden('id', $article->getId()) !!}
             </div>

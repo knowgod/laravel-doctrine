@@ -13,7 +13,13 @@
 
             @include('tries.tag.list')
 
-            <address>at: {{ $article->getCreatedAt() }}</address>
+            <address>
+                <ul>
+                    <li>create: {{ $article->getCreatedAt() ? $article->getCreatedAt()->format('Y-m-d H:i:s') : '' }}</li>
+                    <li>update: {{ $article->getUpdatedAt() ? $article->getUpdatedAt()->format('Y-m-d H:i:s') : '' }}</li>
+                    <li>change: {{ $article->getContentChangedAt() ? $article->getContentChangedAt()->format('Y-m-d H:i:s') : '' }}</li>
+                </ul>
+            </address>
 
             <div class="action-container">
                 <ul>

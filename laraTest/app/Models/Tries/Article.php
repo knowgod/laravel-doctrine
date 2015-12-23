@@ -10,6 +10,8 @@ namespace App\Models\Tries;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use LaravelDoctrine\Extensions\Timestamps\Timestamps;
 
 /**
  * Class Article
@@ -21,6 +23,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Article
 {
+
+    use Timestamps;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -45,10 +50,11 @@ class Article
     protected $tags;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @var DateTime
+     * @ORM\Column(name="content_changed", type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="change", field={"title", "body"})
+     * @var \DateTime
      */
-    protected $created_at;
+    protected $contentChanged;
 
     /**
      * Article constructor.
@@ -64,9 +70,16 @@ class Article
         if ($body) {
             $this->body = $body;
         }
-        $this->created_at = new \DateTime();
 
         $this->tags = new ArrayCollection();
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getContentChangedAt()
+    {
+        return $this->contentChanged;
     }
 
     /**
@@ -91,14 +104,6 @@ class Article
     public function setBody($body)
     {
         $this->body = $body;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at->format('Y-m-d H:i:s');
     }
 
     /**

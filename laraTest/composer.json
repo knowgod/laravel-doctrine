@@ -8,7 +8,9 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
         "laravel-doctrine/orm": "^1.0",
-        "illuminate/html": "^5.0"
+        "illuminate/html": "^5.0",
+        "laravel-doctrine/extensions": "^1.0",
+        "gedmo/doctrine-extensions": "^2.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

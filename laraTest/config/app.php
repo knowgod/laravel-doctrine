@@ -154,6 +154,7 @@ return [
          * Doctrine
          */
         LaravelDoctrine\ORM\DoctrineServiceProvider::class,
+        LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider::class,
     ],
 
     /*

@@ -11,18 +11,62 @@
     </div>
 
     <div class="list-container">
-        <ul>
-            @foreach($articles as $_article)
-                <li style="border: 1px #4cae4c solid;margin: 5px;">
-                    <h3>
-                        <span>{{ $_article->getId() }}.</span>
-                        <a href="{{ action('Tries\ArticlesController@show', [$_article->getId()]) }}">{{ $_article->getTitle() }}</a>
-                    </h3>
+        {!! Form::open(['url'=>'articles/filter']) !!}
+        <table>
+            <colgroup>
+                <col width="5%">
+                <col width="10%">
+                <col width="60%">
+                <col width="15%">
+            </colgroup>
 
-                    <p>{{ $_article->getBody() }}</p>
-                </li>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>{!! Form::label('title','Title:') !!}</th>
+                <th>Body...</th>
+                <th>Dates</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>
+                    {!! Form::text('title',  (isset($filter['title']) ? $filter['title'] : '') , ['class'=>'form-control']) !!}
+                </th>
+                <th>
+                    {!! Form::text('body',  (isset($filter['body']) ? $filter['body'] : '') , ['class'=>'form-control']) !!}
+                </th>
+                <th>
+                    {!! Form::submit('Filter', ['class'=>'btn btn-primary form-control']) !!}
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @foreach($articles as $_article)
+                <tr>
+                    <td>
+                        <a href="{{ action('Tries\ArticlesController@show', [$_article->getId()]) }}">{{ $_article->getId() }}</a>
+                    </td>
+                    <td>
+                        <a href="{{ action('Tries\ArticlesController@show', [$_article->getId()]) }}">{{ $_article->getTitle() }}</a>
+                    </td>
+                    <td>{{ $_article->getBody() }}</td>
+                    <td>
+                        <div>
+                            create: {{ $_article->getCreatedAt() ? $_article->getCreatedAt()->format('Y-m-d H:i:s') : '' }}
+                        </div>
+                        <div>
+                            update: {{ $_article->getUpdatedAt() ? $_article->getUpdatedAt()->format('Y-m-d H:i:s') : '' }}
+                        </div>
+                        <div>
+                            change: {{ $_article->getContentChangedAt() ? $_article->getContentChangedAt()->format('Y-m-d H:i:s') : '' }}
+                        </div>
+                    </td>
+                </tr>
             @endforeach
-        </ul>
+            </tbody>
+        </table>
+        {!! Form::close() !!}
     </div>
 
     <table>

@@ -31,9 +31,11 @@ Route::get('contacts', 'Tries\ContactsController@index');
 Route::get('contacts/{id}', 'Tries\ContactsController@show');
 
 Route::get('articles', 'Tries\ArticlesController@index');
+Route::get('articles/filter', 'Tries\ArticlesController@index');
 Route::get('articles/create', 'Tries\ArticlesController@create');
 Route::get('articles/{id}', 'Tries\ArticlesController@show');
 Route::get('articles/delete/{id}', 'Tries\ArticlesController@destroy');
 Route::get('articles/edit/{id}', 'Tries\ArticlesController@edit');
 
 Route::post('articles', 'Tries\ArticlesController@store');
+Route::post('articles/filter', 'Tries\ArticlesController@index');

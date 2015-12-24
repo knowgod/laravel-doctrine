@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Tries;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Session;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 
 class ArticlesController extends Controller
@@ -34,10 +36,27 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        $filter   = Request::all();
+        $filter = $this->_getPostInput();
+
+        if (!empty($filter)) {
+            Session::set('filter',$filter);
+        } else {
+            $filter = Session::get('filter');
+        }
+
         $articles = $this->repository->filterBy($filter, 5);
 
         return view('tries.article.list', compact('articles', 'filter'));
+    }
+
+    /**
+     * @return array
+     */
+    protected function _getPostInput()
+    {
+        $input = Request::all();
+        $get   = Request::query();
+        return array_diff($input, $get);
     }
 
     /**

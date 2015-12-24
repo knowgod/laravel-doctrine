@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Tries;
 
-use Illuminate\Http\Request;
-
 use App\Contact;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;

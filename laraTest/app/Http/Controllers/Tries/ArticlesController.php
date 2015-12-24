@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Tries;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Request;
 use LaravelDoctrine\ORM\Facades\EntityManager;
-use Request;
 
 class ArticlesController extends Controller
 {
@@ -65,10 +65,9 @@ class ArticlesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         $input = Request::all();
 
@@ -81,6 +80,7 @@ class ArticlesController extends Controller
         if ($article->getId()) {
             return redirect(url("articles", [$article->getId()]));
         }
+        return redirect(url("articles"));
     }
 
     /**
@@ -101,7 +101,7 @@ class ArticlesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request|Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */

@@ -6,7 +6,7 @@
  * Time: 17:57
  */
 
-namespace App\Models\Tries;
+namespace App\Doctrination\Repositories;
 
 
 use Doctrine\ORM\EntityRepository;
@@ -20,7 +20,7 @@ class ArticleRepository extends EntityRepository
      * Create related entity
      *
      * @param array $serialized
-     * @return \App\Models\Tries\Article
+     * @return \App\Doctrination\Entities\Article
      */
     public function createOrUpdate(array $serialized)
     {

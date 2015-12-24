@@ -6,7 +6,7 @@
  * Time: 18:43
  */
 
-namespace App\Models\Tries;
+namespace App\Doctrination\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 

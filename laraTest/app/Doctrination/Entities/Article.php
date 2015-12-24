@@ -6,7 +6,7 @@
  * Time: 18:21
  */
 
-namespace App\Models\Tries;
+namespace App\Doctrination\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,9 +16,9 @@ use LaravelDoctrine\Extensions\Timestamps\Timestamps;
 /**
  * Class Article
  *
- * @package App\Models\Tries
+ * @package App\Doctrination\Entities
  *
- * @ORM\Entity(repositoryClass="App\Models\Tries\ArticleRepository")
+ * @ORM\Entity(repositoryClass="App\Doctrination\Repositories\ArticleRepository")
  * @ORM\Table(name="article")
  */
 class Article

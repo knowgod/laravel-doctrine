@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tries;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 
@@ -80,7 +81,7 @@ class ArticlesController extends Controller
         if ($article->getId()) {
             return redirect(url("articles", [$article->getId()]));
         }
-        return redirect(url("articles"));
+        return Redirect::back()->withInput();
     }
 
     /**

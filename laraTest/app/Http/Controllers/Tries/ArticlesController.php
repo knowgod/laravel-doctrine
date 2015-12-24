@@ -33,7 +33,8 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        $articles = $this->repository->paginateAll(5);
+        $filter   = Request::all();
+        $articles = $this->repository->filterBy($filter, 5);
 
         return view('tries.article.list', compact('articles', 'filter'));
     }

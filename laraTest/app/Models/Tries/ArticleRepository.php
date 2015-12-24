@@ -43,4 +43,27 @@ class ArticleRepository extends EntityRepository
         return $entity;
     }
 
+    /**
+     * @param array $filterBy
+     * @param int $perPage
+     * @param string $pageName
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function filterBy(array $filterBy, $perPage = 5, $pageName = 'page')
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        if (isset($filterBy['body']) && !empty($filterBy['body'])) {
+            $qb->andWhere($qb->expr()->like('a.body', ':body'))
+                ->setParameter('body', '%' . $filterBy['body'] . '%');
+        }
+        if (isset($filterBy['title']) && !empty($filterBy['title'])) {
+            $qb->andWhere($qb->expr()->like('a.title', ':title'))
+                ->setParameter('title', '%' . $filterBy['title'] . '%');
+        }
+
+        return $this->paginate($qb->getQuery(), $perPage, $pageName);
+    }
+
+
 }

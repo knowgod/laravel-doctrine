@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Tries;
+namespace App\Http\Controllers\Doctrination;
 
 use App\Doctrination\Repositories\ArticleRepository;
 use App\Http\Controllers\Controller;

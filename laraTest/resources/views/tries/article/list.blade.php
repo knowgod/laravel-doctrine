@@ -45,10 +45,10 @@
             @foreach($articles as $_article)
                 <tr>
                     <td>
-                        <a href="{{ action('Tries\ArticlesController@show', [$_article->getId()]) }}">{{ $_article->getId() }}</a>
+                        <a href="{{ action('Doctrination\ArticlesController@show', [$_article->getId()]) }}">{{ $_article->getId() }}</a>
                     </td>
                     <td>
-                        <a href="{{ action('Tries\ArticlesController@show', [$_article->getId()]) }}">{{ $_article->getTitle() }}</a>
+                        <a href="{{ action('Doctrination\ArticlesController@show', [$_article->getId()]) }}">{{ $_article->getTitle() }}</a>
                     </td>
                     <td>{{ $_article->getBody() }}</td>
                     <td>

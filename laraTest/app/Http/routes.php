@@ -30,12 +30,12 @@ Route::get('contact', 'PagesController@contact');
 Route::get('contacts', 'Tries\ContactsController@index');
 Route::get('contacts/{id}', 'Tries\ContactsController@show');
 
-Route::get('articles', 'Tries\ArticlesController@index');
-Route::get('articles/filter', 'Tries\ArticlesController@index');
-Route::get('articles/create', 'Tries\ArticlesController@create');
-Route::get('articles/{id}', 'Tries\ArticlesController@show');
-Route::get('articles/delete/{id}', 'Tries\ArticlesController@destroy');
-Route::get('articles/edit/{id}', 'Tries\ArticlesController@edit');
+Route::get('articles', 'Doctrination\ArticlesController@index');
+Route::get('articles/filter', 'Doctrination\ArticlesController@index');
+Route::get('articles/create', 'Doctrination\ArticlesController@create');
+Route::get('articles/{id}', 'Doctrination\ArticlesController@show');
+Route::get('articles/delete/{id}', 'Doctrination\ArticlesController@destroy');
+Route::get('articles/edit/{id}', 'Doctrination\ArticlesController@edit');
 
-Route::post('articles', 'Tries\ArticlesController@store');
-Route::post('articles/filter', 'Tries\ArticlesController@index');
+Route::post('articles', 'Doctrination\ArticlesController@store');
+Route::post('articles/filter', 'Doctrination\ArticlesController@index');

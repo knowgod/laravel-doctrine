@@ -46,4 +46,22 @@ class ArticleControllerTest extends TestCase
 
         return $this;
     }
+
+    /**
+     * @before
+     */
+    public function beginDatabaseTransaction()
+    {
+        $em = app('em');
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em->getConnection()->beginTransaction();
+
+        $this->beforeApplicationDestroyed(
+            function () {
+                $em = app('em');
+                /** @var \Doctrine\ORM\EntityManager $em */
+                $em->getConnection()->rollBack();
+            }
+        );
+    }
 }

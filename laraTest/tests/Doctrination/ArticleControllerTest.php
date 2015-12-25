@@ -6,11 +6,7 @@ use TestCase;
 
 class ArticleControllerTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+
     public function testList()
     {
         $this->visit('/articles')
@@ -28,7 +24,7 @@ class ArticleControllerTest extends TestCase
             ->seePageIs('/articles');
 
         $articleData = [
-            'title' => 'Test New Article Create',
+            'title' => 'Test Article #' . date('Ymd_His'),
             'body'  => 'A falsis, repressor noster diatria. Est dexter capio, cesaris.',
         ];
 

@@ -1,6 +1,6 @@
 <?php
 
-/** @var \App\Models\Tries\Article $article */
+/** @var \App\Doctrination\Entities\Article $article */
 ?>
 @extends('app')
 
@@ -37,6 +37,7 @@
 
         {!! Form::close() !!}
 
+        <a href="{{ url('articles') }}">&leftarrow; Back to List</a>
 
     </div>
 @endsection

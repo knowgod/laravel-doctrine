@@ -40,4 +40,14 @@ class ArticleTest extends \TestCase
         $this->assertCount($tagCount, $article->getTags());
     }
 
+    public function testHasTag()
+    {
+        $article = new Article();
+        $tag     = new Tag(uniqid('testTag_'));
+
+        $this->assertFalse($article->hasTag($tag));
+
+        $article->addTag($tag);
+        $this->assertTrue($article->hasTag($tag));
+    }
 }

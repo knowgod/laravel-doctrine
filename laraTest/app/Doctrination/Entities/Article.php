@@ -136,10 +136,19 @@ class Article
      */
     public function addTag(Tag $tag)
     {
-        if (!$this->tags->contains($tag)) {
+        if (!$this->hasTag($tag)) {
             $tag->setArticle($this);
             $this->tags->add($tag);
         }
+    }
+
+    /**
+     * @param Tag $tag
+     * @return bool
+     */
+    public function hasTag(Tag $tag)
+    {
+        return $this->tags->contains($tag);
     }
 
 }

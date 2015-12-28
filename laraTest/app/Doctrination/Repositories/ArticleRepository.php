@@ -9,7 +9,9 @@
 namespace App\Doctrination\Repositories;
 
 
+use App\Doctrination\Entities\Article;
 use Doctrine\ORM\EntityRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 use LaravelDoctrine\ORM\Pagination\Paginatable;
 
 class ArticleRepository extends EntityRepository
@@ -20,7 +22,7 @@ class ArticleRepository extends EntityRepository
      * Create related entity
      *
      * @param array $serialized
-     * @return \App\Doctrination\Entities\Article
+     * @return Article
      */
     public function createOrUpdate(array $serialized)
     {
@@ -47,7 +49,7 @@ class ArticleRepository extends EntityRepository
      * @param array $filterBy
      * @param int $perPage
      * @param string $pageName
-     * @return \Illuminate\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public function filterBy($filterBy, $perPage = 5, $pageName = 'page')
     {

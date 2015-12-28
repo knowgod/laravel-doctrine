@@ -14,6 +14,10 @@
             display: inline-block;
             margin-right: 10px;
         }
+
+        .tag-list {
+            margin-right: 20px;
+        }
     </style>
 </head>
 

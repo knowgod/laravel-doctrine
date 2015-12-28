@@ -10,6 +10,7 @@ namespace App\Doctrination\Repositories;
 
 
 use App\Doctrination\Entities\Article;
+use App\Doctrination\Entities\Tag;
 use Doctrine\ORM\EntityRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 use LaravelDoctrine\ORM\Pagination\Paginatable;
@@ -36,6 +37,16 @@ class ArticleRepository extends EntityRepository
             $entity = new $entityName();
         }
 
+        if (isset($serialized['tag'])) {
+            foreach ($serialized['tag'] as $tagId) {
+                $tag = $this->getEntityManager()->find(Tag::class, $tagId);
+                if ($tag instanceof Tag) {
+                    $entity->addTag($tag);
+                }
+            }
+            unset($serialized['tag']);
+        }
+
         foreach ($serialized as $key => $val) {
             $method = 'set' . ucfirst($key);
             if (method_exists($entity, $method)) {
@@ -43,6 +54,28 @@ class ArticleRepository extends EntityRepository
             }
         }
         return $entity;
+    }
+
+    public function setTags(Article $entity, array $tagIds)
+    {
+        foreach ($tagIds as $tagId) {
+            $tag = $this->getEntityManager()->find(Tag::class, $tagId);
+            if ($tag instanceof Tag) {
+                $entity->addTag($tag);
+            }
+        }
+
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllTags()
+    {
+        $em = app('em');
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $repository = $em->getRepository(Tag::class);
+        return $repository->findAll();
     }
 
     /**

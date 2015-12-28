@@ -31,6 +31,17 @@
             {!! Form::textarea('body', $article ? $article->getBody() : null,['class'=>'form-control','foo'=>'bar']) !!}
         </div>
 
+        @if (!empty($tags))
+            <div class="form-group tag-list-container">
+                @foreach($tags as $tag)
+                    <span class="tag-list">
+                        {!! Form::checkbox("tag[]", $tag->getId(), ($article && $article->hasTag($tag)) ? true : false, ['class'=>'', 'id'=>'tag_'.$tag->getId()]) !!}
+                        {!! Form::label('tag_'.$tag->getId(), $tag->getName()) !!}
+                    </span>
+                @endforeach
+            </div>
+        @endif
+
         <div class="form-group">
             {!! Form::submit($article ? 'Save Article' : 'Add Article', ['class'=>'btn btn-primary form-control']) !!}
         </div>

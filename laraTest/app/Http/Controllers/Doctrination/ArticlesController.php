@@ -68,7 +68,15 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        return view('tries.article.create', ['article' => null]);
+        return view('tries.article.create', ['article' => null, 'tags' => $this->_getAllTags()]);
+    }
+
+    /**
+     * @return array
+     */
+    protected function _getAllTags()
+    {
+        return $this->repository->getAllTags();
     }
 
     /**
@@ -117,7 +125,9 @@ class ArticlesController extends Controller
         if (!$article) {
             return view('tries.article.show', compact('article'));
         }
-        return view('tries.article.create', compact('article'));
+
+        $tags = $this->_getAllTags();
+        return view('tries.article.create', compact('article', 'tags'));
     }
 
     /**

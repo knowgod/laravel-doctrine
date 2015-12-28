@@ -70,11 +70,6 @@ class ArticleControllerTest extends TestCase
         $testArticle = new Article($articleData['title'], $articleData['body']);
         $articleId   = 15;
 
-        /**
-         * @todo Replace this real connection with mocked one
-         */
-        $testConnection = EntityManager::getConnection();
-
         // Now, mock the repository so it returns the mock of the employee
         $testRepository = $this
             ->getMockBuilder(ArticleRepository::class)
@@ -89,7 +84,7 @@ class ArticleControllerTest extends TestCase
             ->with(Article::class)
             ->andReturn($testRepository);
         EntityManager::shouldReceive('getConnection')
-            ->andReturn($testConnection);
+            ->andReturn($this->_getMockConnection());
 
         $this->visit('/articles/' . $articleId)
             ->see($articleData['title'])

@@ -8,6 +8,7 @@
 
 namespace App\Doctrination\Testing;
 
+use Doctrine\DBAL\Connection;
 use Illuminate\Foundation\Testing\DatabaseTransactions as EloquentDatabaseTransactions;
 
 trait DatabaseTransactions
@@ -31,5 +32,27 @@ trait DatabaseTransactions
                 $em->getConnection()->rollBack();
             }
         );
+    }
+
+    /**
+     * @return Doctrine\DBAL\Connection
+     */
+    protected function _getMockConnection()
+    {
+        return $this->getMockBuilder(Connection::class)
+            ->disableOriginalConstructor()
+            ->setMethods(
+                array(
+                    'beginTransaction',
+                    'commit',
+                    'rollback',
+                    'prepare',
+                    'query',
+                    'executeQuery',
+                    'executeUpdate',
+                    'getDatabasePlatform',
+                )
+            )
+            ->getMock();
     }
 }

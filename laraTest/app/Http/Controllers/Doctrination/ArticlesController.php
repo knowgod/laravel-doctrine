@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Doctrination;
 
+use App\Doctrination\Entities\Article;
 use App\Doctrination\Repositories\ArticleRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
@@ -27,7 +28,7 @@ class ArticlesController extends Controller
     {
         $em = app('em');
         /** @var \Doctrine\ORM\EntityManager $em */
-        $this->repository = $em->getRepository('App\Doctrination\Entities\Article');
+        $this->repository = $em->getRepository(Article::class);
     }
 
     /**
@@ -40,7 +41,7 @@ class ArticlesController extends Controller
         $filter = $this->_getPostInput();
 
         if (!empty($filter)) {
-            Session::set('filter',$filter);
+            Session::set('filter', $filter);
         } else {
             $filter = Session::get('filter');
         }
@@ -78,7 +79,7 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        $article = EntityManager::find('App\Doctrination\Entities\Article', $id);
+        $article = EntityManager::find(Article::class, $id);
         $tags    = $article->getTags();
         return view('tries.article.show', compact('article', 'tags'));
     }
@@ -112,7 +113,7 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
-        $article = EntityManager::find('App\Doctrination\Entities\Article', $id);
+        $article = EntityManager::find(Article::class, $id);
         if (!$article) {
             return view('tries.article.show', compact('article'));
         }
@@ -139,7 +140,7 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        $article = EntityManager::find('App\Doctrination\Entities\Article', $id);
+        $article = EntityManager::find(Article::class, $id);
         if (!$article) {
             return view('tries.article.show', compact('article'));
         }

@@ -1,4 +1,5 @@
 <?php
+use App\Doctrination\Entities\Article;
 use App\Doctrination\Entities\Tag;
 use App\Doctrination\Testing\DatabaseTransactions;
 use LaravelDoctrine\ORM\Facades\EntityManager;
@@ -24,15 +25,15 @@ class ArticleRepositoryTest extends TestCase
     {
         $em = app('em');
         /** @var \Doctrine\ORM\EntityManager $em */
-        $repo = $em->getRepository('App\Doctrination\Entities\Article');
+        $repo = $em->getRepository(Article::class);
         /** @var App\Doctrination\Repositories\ArticleRepository $repo */
-        $this->assertEquals('App\Doctrination\Repositories\ArticleRepository', get_class($repo));
+        $this->assertInstanceOf(\App\Doctrination\Repositories\ArticleRepository::class, $repo);
 
         $tag = $this->_saveTags($title);
 
         $article = $repo->createOrUpdate(compact('title', 'body', 'tag'));
 
-        $this->assertInstanceOf('App\Doctrination\Entities\Article', $article);
+        $this->assertInstanceOf(Article::class, $article);
         $this->assertEquals($title, $article->getTitle());
         $this->assertEquals($body, $article->getBody());
         $this->assertCount(count($tag), $article->getTags());

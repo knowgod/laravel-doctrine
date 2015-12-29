@@ -48,7 +48,7 @@ class ArticlesController extends Controller
 
         $articles = $this->repository->filterBy($filter, 5);
 
-        return view('tries.article.list', compact('articles', 'filter'));
+        return view('doctrination.article.list', compact('articles', 'filter'));
     }
 
     /**
@@ -68,7 +68,7 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        return view('tries.article.create', ['article' => null, 'tags' => $this->_getAllTags()]);
+        return view('doctrination.article.create', ['article' => null, 'tags' => $this->_getAllTags()]);
     }
 
     /**
@@ -89,7 +89,7 @@ class ArticlesController extends Controller
     {
         $article = EntityManager::find(Article::class, $id);
         $tags    = $article->getTags();
-        return view('tries.article.show', compact('article', 'tags'));
+        return view('doctrination.article.show', compact('article', 'tags'));
     }
 
     /**
@@ -123,11 +123,11 @@ class ArticlesController extends Controller
     {
         $article = EntityManager::find(Article::class, $id);
         if (!$article) {
-            return view('tries.article.show', compact('article'));
+            return view('doctrination.article.show', compact('article'));
         }
 
         $tags = $this->_getAllTags();
-        return view('tries.article.create', compact('article', 'tags'));
+        return view('doctrination.article.create', compact('article', 'tags'));
     }
 
     /**
@@ -152,7 +152,7 @@ class ArticlesController extends Controller
     {
         $article = EntityManager::find(Article::class, $id);
         if (!$article) {
-            return view('tries.article.show', compact('article'));
+            return view('doctrination.article.show', compact('article'));
         }
 
         EntityManager::remove($article);

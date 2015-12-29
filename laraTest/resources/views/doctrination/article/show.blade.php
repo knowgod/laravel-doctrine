@@ -1,6 +1,6 @@
 <?php
 
-/** @var \App\Models\Tries\Article $article */
+/** @var \App\Doctrination\Entities\Article $article */
 ?>
 @extends('app')
 
@@ -11,7 +11,7 @@
 
             <p>{{ $article->getBody() }}</p>
 
-            @include('tries.tag.list')
+            @include('doctrination.tag.list')
 
             <address>
                 <ul>

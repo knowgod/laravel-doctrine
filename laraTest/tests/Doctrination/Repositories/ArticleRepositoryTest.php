@@ -16,18 +16,19 @@ class ArticleRepositoryTest extends TestCase
     use DatabaseTransactions;
 
     /**
-     * @dataProvider provideArticleSource
+     * @todo Need testUpdate method
      *
-     * @param $title
-     * @param $body
      */
-    public function testCreateOrUpdate($title, $body)
+    public function testCreate()
     {
         $em = app('em');
         /** @var \Doctrine\ORM\EntityManager $em */
         $repo = $em->getRepository(Article::class);
         /** @var App\Doctrination\Repositories\ArticleRepository $repo */
         $this->assertInstanceOf(\App\Doctrination\Repositories\ArticleRepository::class, $repo);
+
+        $title = 'Sails rise with hunger.';
+        $body  = 'Caesiums studere, tanquam camerarius lumen.';
 
         $tag = $this->_saveTags($title);
 
@@ -67,20 +68,4 @@ class ArticleRepositoryTest extends TestCase
         );
     }
 
-    /**
-     * @return array
-     */
-    public function provideArticleSource()
-    {
-        return [
-            [
-                'Sails rise with hunger.',
-                'Caesiums studere, tanquam camerarius lumen.'
-            ],
-            [
-                'Masts whine with booty.',
-                'Fluctuss messis, tanquam fortis historia.'
-            ],
-        ];
-    }
 }

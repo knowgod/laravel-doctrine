@@ -25,7 +25,7 @@ class ArticleTest extends \TestCase
      *
      * @param $tagCount
      */
-    public function addTag_and_hasTag($tagCount)
+    public function tag_workflow($tagCount)
     {
         $article = new Article();
 
@@ -38,6 +38,15 @@ class ArticleTest extends \TestCase
         }
         $this->assertContainsOnlyInstancesOf(Tag::class, $article->getTags());
         $this->assertCount($tagCount, $article->getTags());
+
+        if ($tagCount > 0) {
+            $this->assertTrue($article->removeTag($tag));
+            $this->assertNotTrue($article->hasTag($tag));
+            $this->assertCount($tagCount - 1, $article->getTags());
+        }
+
+        $anotherTag = new Tag('anotherTag');
+        $this->assertFalse($article->removeTag($anotherTag));
     }
 
 }

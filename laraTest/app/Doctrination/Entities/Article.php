@@ -154,4 +154,16 @@ class Article
         return $this->tags->contains($tag);
     }
 
+    /**
+     * @param Tag $tag
+     * @return bool
+     */
+    public function removeTag(Tag $tag)
+    {
+        if ($this->hasTag($tag)) {
+            return $this->tags->removeElement($tag);
+        }
+        return false;
+    }
+
 }

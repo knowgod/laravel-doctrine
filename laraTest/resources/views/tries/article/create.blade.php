@@ -23,12 +23,12 @@
 
         <div class="form-group">
             {!! Form::label('title','Title:') !!}
-            {!! Form::text('title', $article ? $article->getTitle() : null,['class'=>'form-control','foo'=>'bar']) !!}
+            {!! Form::text('title', $article ? $article->getTitle() : null, ['class'=>'form-control','foo'=>'bar']) !!}
         </div>
 
         <div class="form-group">
             {!! Form::label('body','Body:') !!}
-            {!! Form::textarea('body', $article ? $article->getBody() : null,['class'=>'form-control','foo'=>'bar']) !!}
+            {!! Form::textarea('body', $article ? $article->getBody() : null, ['class'=>'form-control','foo'=>'bar']) !!}
         </div>
 
         @if (!empty($tags))

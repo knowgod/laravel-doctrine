@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
     <style type="text/css">
-        .action-container li {
+        .action-container li,
+        .tag-cloud li {
             list-style-type: none;
             display: inline-block;
             margin-right: 10px;

@@ -20,34 +20,24 @@ class ArticleTest extends \TestCase
     }
 
     /**
+     * @test
      * @dataProvider provideTagsCount
      *
      * @param $tagCount
      */
-    public function testAddTag($tagCount)
+    public function addTag_and_hasTag($tagCount)
     {
         $article = new Article();
 
         for ($i = 0; $i < $tagCount; ++$i) {
             $tag = new Tag(uniqid('testTag_'));
-            $this->assertEmpty($tag->getArticles());
+            $this->assertFalse($article->hasTag($tag));
 
             $article->addTag($tag);
-            $this->assertContainsOnlyInstancesOf('App\Doctrination\Entities\Tag', $article->getTags());
-            $this->assertTrue($article->getTags()->contains($tag));
-            $this->assertInstanceOf('App\Doctrination\Entities\Article', $tag->getArticles());
+            $this->assertTrue($article->hasTag($tag));
         }
+        $this->assertContainsOnlyInstancesOf(Tag::class, $article->getTags());
         $this->assertCount($tagCount, $article->getTags());
     }
 
-    public function testHasTag()
-    {
-        $article = new Article();
-        $tag     = new Tag(uniqid('testTag_'));
-
-        $this->assertFalse($article->hasTag($tag));
-
-        $article->addTag($tag);
-        $this->assertTrue($article->hasTag($tag));
-    }
 }

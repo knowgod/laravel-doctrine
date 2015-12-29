@@ -44,7 +44,7 @@ class Article
     protected $body;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag", mappedBy="article", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Tag", mappedBy="articles", cascade={"persist"})
      * @var ArrayCollection|Tag[]
      */
     protected $tags;

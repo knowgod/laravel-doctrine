@@ -30,12 +30,12 @@ class ArticleTest extends \TestCase
 
         for ($i = 0; $i < $tagCount; ++$i) {
             $tag = new Tag(uniqid('testTag_'));
-            $this->assertEmpty($tag->getArticle());
+            $this->assertEmpty($tag->getArticles());
 
             $article->addTag($tag);
             $this->assertContainsOnlyInstancesOf('App\Doctrination\Entities\Tag', $article->getTags());
             $this->assertTrue($article->getTags()->contains($tag));
-            $this->assertInstanceOf('App\Doctrination\Entities\Article', $tag->getArticle());
+            $this->assertInstanceOf('App\Doctrination\Entities\Article', $tag->getArticles());
         }
         $this->assertCount($tagCount, $article->getTags());
     }

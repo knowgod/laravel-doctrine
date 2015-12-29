@@ -8,6 +8,7 @@
 
 namespace App\Doctrination\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -31,9 +32,9 @@ class Tag
 
     /**
      * @ORM\ManyToMany(targetEntity="Article", inversedBy="tags")
-     * @var Article
+     * @var ArrayCollection|Tag[]
      */
-    protected $article;
+    protected $articles;
 
     /**
      * Tag constructor.
@@ -64,17 +65,17 @@ class Tag
     /**
      * @return Article
      */
-    public function getArticle()
+    public function getArticles()
     {
-        return $this->article;
+        return $this->articles;
     }
 
     /**
-     * @param Article $article
+     * @param Article $articles
      */
-    public function setArticle(Article $article)
+    public function setArticle(Article $articles)
     {
-        $this->article = $article;
+        $this->articles = $articles;
     }
 
 

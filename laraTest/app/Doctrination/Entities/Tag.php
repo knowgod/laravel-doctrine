@@ -92,4 +92,15 @@ class Tag
         return $this->articles->contains($article);
     }
 
+    /**
+     * @param Article $article
+     * @return bool
+     */
+    public function removeArticle(Article $article)
+    {
+        if ($this->hasArticle($article)) {
+            return $this->articles->removeElement($article);
+        }
+        return false;
+    }
 }

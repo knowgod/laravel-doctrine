@@ -137,7 +137,7 @@ class Article
     public function addTag(Tag $tag)
     {
         if (!$this->hasTag($tag)) {
-            $tag->setArticle($this);
+            $tag->addArticle($this);
             $this->tags->add($tag);
         }
     }

@@ -44,6 +44,8 @@ class Tag
     public function __construct($name)
     {
         $this->name = $name;
+
+        $this->articles = new ArrayCollection();
     }
 
     /**
@@ -71,12 +73,22 @@ class Tag
     }
 
     /**
-     * @param Article $articles
+     * @param Article $article
      */
-    public function setArticle(Article $articles)
+    public function addArticle(Article $article)
     {
-        $this->articles = $articles;
+        if (!$this->hasArticle($article)) {
+            $this->articles->add($article);
+        }
     }
 
+    /**
+     * @param Article $article
+     * @return boolean
+     */
+    public function hasArticle(Article $article)
+    {
+        return $this->articles->contains($article);
+    }
 
 }

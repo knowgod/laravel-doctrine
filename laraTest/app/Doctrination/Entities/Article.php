@@ -104,6 +104,7 @@ class Article
     public function setBody($body)
     {
         $this->body = $body;
+        return $this;
     }
 
     /**
@@ -128,6 +129,7 @@ class Article
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -140,6 +142,7 @@ class Article
             $tag->addArticle($this);
             $this->tags->add($tag);
         }
+        return $this;
     }
 
     /**

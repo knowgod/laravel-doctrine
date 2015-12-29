@@ -80,6 +80,7 @@ class Tag
         if (!$this->hasArticle($article)) {
             $this->articles->add($article);
         }
+        return $this;
     }
 
     /**

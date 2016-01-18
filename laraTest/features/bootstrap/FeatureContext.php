@@ -9,6 +9,7 @@ use Behat\MinkExtension\Context\MinkContext;
  */
 class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
 {
+
     /**
      * Initializes context.
      *
@@ -19,4 +20,26 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function __construct()
     {
     }
+
+
+    /**
+     * @When I follow :link on :page
+     * @param string $link
+     * @param string $page
+     */
+    public function iFollowOn($link, $page)
+    {
+        $this->visit($page);
+        $this->clickLink($link);
+    }
+
+    /**
+     * @Then /^the response should match "(?P<text>(?:[^"]|\\")*)"$/
+     */
+    public function theResponseShouldMatch($regex)
+    {
+        $regex = '#' . str_replace('#', '\#', $regex) . '#ui';
+        $this->assertSession()->responseMatches($this->fixStepArgument($regex));
+    }
+
 }

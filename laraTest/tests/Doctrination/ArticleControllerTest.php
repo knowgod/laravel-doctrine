@@ -3,11 +3,13 @@
 
 use App\Doctrination\Entities\Article;
 use App\Doctrination\Testing\DatabaseTransactions;
+use App\Doctrination\Testing\EntityManagerTrait;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 
 class ArticleControllerTest extends TestCase
 {
     use DatabaseTransactions;
+    use EntityManagerTrait;
 
     public function testList()
     {

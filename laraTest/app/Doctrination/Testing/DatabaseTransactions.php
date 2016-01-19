@@ -23,6 +23,7 @@ trait DatabaseTransactions
 
     /**
      * @before
+     * @BeforeScenario
      *
      * @var $this TestCase
      */
@@ -32,12 +33,18 @@ trait DatabaseTransactions
         /** @var \Doctrine\ORM\EntityManager $em */
         $em->getConnection()->beginTransaction();
 
-        $this->beforeApplicationDestroyed(
-            function () {
-                $em = app('em');
-                /** @var \Doctrine\ORM\EntityManager $em */
-                $em->getConnection()->rollBack();
-            }
-        );
+        if (method_exists($this, 'beforeApplicationDestroyed')) {
+            $this->beforeApplicationDestroyed([$this, 'rollback']);
+        }
+    }
+
+    /**
+     * @AfterScenario
+     */
+    public function rollback()
+    {
+        $em = app('em');
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em->getConnection()->rollBack();
     }
 }

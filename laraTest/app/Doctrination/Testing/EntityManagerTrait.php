@@ -8,8 +8,6 @@
 
 namespace App\Doctrination\Testing;
 
-use App\Doctrination\Entities\Article;
-use App\Doctrination\Repositories\ArticleRepository;
 use Doctrine\DBAL\Connection;
 use Illuminate\Foundation\Testing\TestCase;
 use LaravelDoctrine\ORM\Facades\EntityManager;
@@ -17,18 +15,18 @@ use LaravelDoctrine\ORM\Facades\EntityManager;
 trait EntityManagerTrait
 {
 
-    protected function _mockEntityManagerFacade()
+    protected function _mockEntityManagerFacade($repositoryClassName, $entityClassName)
     {
         // Now, mock the repository so it returns the mock of the employee
         /** @var TestCase $this */
         $testRepository = $this
-            ->getMockBuilder(ArticleRepository::class)
+            ->getMockBuilder($repositoryClassName)
             ->disableOriginalConstructor()
             ->getMock();
 
         // Last, mock the EntityManager to return the mock of the repository
         EntityManager::shouldReceive('getRepository')
-            ->with(Article::class)
+            ->with($entityClassName)
             ->andReturn($testRepository);
 
         /** @var DatabaseTransactions $this */

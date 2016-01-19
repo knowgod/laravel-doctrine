@@ -2,6 +2,7 @@
 
 
 use App\Doctrination\Entities\Article;
+use App\Doctrination\Repositories\ArticleRepository;
 use App\Doctrination\Testing\DatabaseTransactions;
 use App\Doctrination\Testing\EntityManagerTrait;
 use LaravelDoctrine\ORM\Facades\EntityManager;
@@ -71,7 +72,7 @@ class ArticleControllerTest extends TestCase
         $testArticle = new Article($articleData['title'], $articleData['body']);
         $articleId   = 15;
 
-        $this->_mockEntityManagerFacade();
+        $this->_mockEntityManagerFacade(ArticleRepository::class, Article::class);
         EntityManager::shouldReceive('find')
             ->with(Article::class, $articleId)
             ->andReturn($testArticle);

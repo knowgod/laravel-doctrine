@@ -9,7 +9,6 @@
 namespace App\Doctrination\Testing;
 
 use Doctrine\DBAL\Connection;
-use Illuminate\Foundation\Testing\TestCase;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 
 trait EntityManagerTrait
@@ -18,9 +17,8 @@ trait EntityManagerTrait
     protected function _mockEntityManagerFacade($repositoryClassName, $entityClassName)
     {
         // Now, mock the repository so it returns the mock of the employee
-        /** @var TestCase $this */
         $testRepository = $this
-            ->getMockBuilder($repositoryClassName)
+            ->_getMockBuilder($repositoryClassName)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -29,9 +27,26 @@ trait EntityManagerTrait
             ->with($entityClassName)
             ->andReturn($testRepository);
 
-        /** @var DatabaseTransactions $this */
         EntityManager::shouldReceive('getConnection')
             ->andReturn($this->_getMockConnection());
+    }
+
+    /**
+     * Returns a builder object to create mock objects using a fluent interface.
+     *
+     * @param string $className
+     *
+     * @return \PHPUnit_Framework_MockObject_MockBuilder
+     *
+     * @since  Method available since Release 3.5.0
+     */
+    protected function _getMockBuilder($className)
+    {
+        if (method_exists($this, 'getMockBuilder')) {
+            /** @var \TestCase $this */
+            return $this->getMockBuilder($className);
+        }
+        return new \PHPUnit_Framework_MockObject_MockBuilder(new \TestCase(), $className);
     }
 
     /**
@@ -39,8 +54,7 @@ trait EntityManagerTrait
      */
     protected function _getMockConnection()
     {
-        /** @var TestCase $this */
-        return $this->getMockBuilder(Connection::class)
+        return $this->_getMockBuilder(Connection::class)
             ->disableOriginalConstructor()
             ->setMethods(
                 array(

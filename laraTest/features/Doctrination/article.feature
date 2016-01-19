@@ -42,3 +42,14 @@ Feature: An Article CRUD
     And the response should match "<a href=\"http://laratest.localhost.com/articles/edit/\d+\">Edit</a>"
     And the response should match "<a href=\"http://laratest.localhost.com/articles/delete/\d+\">Delete</a>"
     And the response should match "<a href=\"http://laratest.localhost.com/articles\">.+back to list</a>"
+
+  Scenario: Edit Article page
+    Given there is an article:
+      | id    | 7                                                 |
+      | title | Test Behat Article Edit                           |
+      | body  | Sunt hibridaes acquirere azureus, fortis decores. |
+    When I am on "/articles/edit/7"
+    Then I should see "Edit Article #7"
+    And the response should contain "Test Behat Article Edit"
+    And I should see "Sunt hibridaes acquirere azureus, fortis decores."
+    And the response should contain "Save Article"

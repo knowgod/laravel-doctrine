@@ -61,6 +61,8 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
+     * EntityManager will return Article mock each time when it's searched by a given ID
+     *
      * @param TableNode $table
      * @return Article
      */
@@ -69,6 +71,11 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         $articleData = $table->getRowsHash();
         $article     = new Article($articleData['title'], $articleData['body']);
         $articleId   = $articleData['id'];
+
+        $reflection          = new ReflectionClass($article);
+        $reflection_property = $reflection->getProperty('id');
+        $reflection_property->setAccessible(true);
+        $reflection_property->setValue($article, $articleId);
 
         $this->_mockEntityManagerFacade(ArticleRepository::class, Article::class);
         EntityManager::shouldReceive('find')

@@ -8,7 +8,7 @@ Feature: An Article CRUD
     Then the response should contain "<h1>Articles</h1>"
     And I should see "create new"
 
-  Scenario: Create new article form
+  Scenario: "Create new article" form
     When I follow "create new" on "/articles"
     Then the url should match "/articles/create"
     And I should see "Write a New Article"
@@ -21,3 +21,11 @@ Feature: An Article CRUD
     And the response should match "<a href=\"https?://.+/articles\">.*Back to List</a>"
     When I follow "Back to List"
     Then the url should match "/articles"
+
+  Scenario: Create new Article using the form
+    Given I am on "/articles/create"
+    When I fill in the following:
+      | title | Test Behat Article                                   |
+      | body  | The klingon trembles vision like a united teleporter |
+    And I press "Add Article"
+    Then the url should match "/articles/\d+"

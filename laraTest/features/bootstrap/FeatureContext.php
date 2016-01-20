@@ -4,6 +4,7 @@ use App\Doctrination\Entities\Article;
 use App\Doctrination\Repositories\ArticleRepository;
 use App\Doctrination\Testing\DatabaseTransactions;
 use App\Doctrination\Testing\EntityManagerTrait;
+use App\Doctrination\Testing\EntityTrait;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
@@ -17,7 +18,14 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 {
 
     use DatabaseTransactions;
-    use EntityManagerTrait;
+    use EntityManagerTrait, EntityTrait;
+
+    /**
+     * For usage in methods those apply 'ExistingArticle' word
+     *
+     * @var integer
+     */
+    protected $_existingArticleId;
 
     /**
      * Initializes context.
@@ -69,19 +77,68 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     protected function _getMockArticle(TableNode $table)
     {
         $articleData = $table->getRowsHash();
-        $article     = new Article($articleData['title'], $articleData['body']);
-        $articleId   = $articleData['id'];
-
-        $reflection          = new ReflectionClass($article);
-        $reflection_property = $reflection->getProperty('id');
-        $reflection_property->setAccessible(true);
-        $reflection_property->setValue($article, $articleId);
+        $article     = $this->_getEntityWithData(Article::class, $articleData);
 
         $this->_mockEntityManagerFacade(ArticleRepository::class, Article::class);
+
         EntityManager::shouldReceive('find')
-            ->with(Article::class, $articleId)
+            ->with(Article::class, $articleData['id'])
             ->andReturn($article);
 
-        return EntityManager::find(Article::class, $articleId);
+        return EntityManager::find(Article::class, $articleData['id']);
+    }
+
+    /**
+     * @Then there is no ExistingArticle
+     */
+    public function thereIsNoExistingArticle()
+    {
+        PHPUnit::assertGreaterThan(0, $this->_existingArticleId);
+        $article = EntityManager::find(Article::class, $this->_existingArticleId);
+        PHPUnit::assertEmpty($article);
+    }
+
+    /**
+     * @Given there is ExistingArticle:
+     */
+    public function thereIsExistingArticle(TableNode $table)
+    {
+        $articleData = $table->getRowsHash();
+        $article     = $this->_getEntityWithData(Article::class, $articleData);
+        /** @var Article $article */
+
+        EntityManager::persist($article);
+        EntityManager::flush();
+
+        PHPUnit::assertGreaterThan(0, $article->getId());
+        $this->_existingArticleId = $article->getId();
+    }
+
+    /**
+     * @Given I am on ExistingArticle show page
+     * @When I follow ExistingArticle show page
+     */
+    public function iAmOnExistingArticleShowPage()
+    {
+        PHPUnit::assertGreaterThan(0, $this->_existingArticleId);
+        $this->visit('/articles/' . $this->_existingArticleId);
+    }
+
+    /**
+     * @Given I am on ExistingArticle edit page
+     */
+    public function iAmOnExistingArticleEditPage()
+    {
+        PHPUnit::assertGreaterThan(0, $this->_existingArticleId);
+        $this->visit('/articles/edit/' . $this->_existingArticleId);
+    }
+
+    /**
+     * @Then the url should match ExistingArticle show page
+     */
+    public function theUrlShouldMatchExistingArticleShowPage()
+    {
+        PHPUnit::assertGreaterThan(0, $this->_existingArticleId);
+        $this->visit('/articles/' . $this->_existingArticleId);
     }
 }

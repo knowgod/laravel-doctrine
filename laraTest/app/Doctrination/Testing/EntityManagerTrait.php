@@ -16,7 +16,7 @@ trait EntityManagerTrait
 
     protected function _mockEntityManagerFacade($repositoryClassName, $entityClassName)
     {
-        // Now, mock the repository so it returns the mock of the employee
+        // Now, mock the repository so it returns the mock of the article
         $testRepository = $this
             ->_getMockBuilder($repositoryClassName)
             ->disableOriginalConstructor()

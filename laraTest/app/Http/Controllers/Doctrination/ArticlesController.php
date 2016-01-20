@@ -6,7 +6,6 @@ use App\Doctrination\Entities\Article;
 use App\Doctrination\Repositories\ArticleRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
@@ -88,7 +87,9 @@ class ArticlesController extends Controller
     public function show($id)
     {
         $article = EntityManager::find(Article::class, $id);
-        $tags    = $article->getTags();
+        if ($article instanceof Article) {
+            $tags = $article->getTags();
+        }
         return view('doctrination.article.show', compact('article', 'tags'));
     }
 

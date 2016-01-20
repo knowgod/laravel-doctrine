@@ -20,6 +20,11 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     use DatabaseTransactions;
     use EntityManagerTrait, EntityTrait;
 
+    /**
+     * For usage in methods those apply 'ExistingArticle' word
+     *
+     * @var integer
+     */
     protected $_existingArticleId;
 
     /**
@@ -61,6 +66,40 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     {
         $testArticle = $this->_getMockArticle($table);
         PHPUnit::assertInstanceOf(Article::class, $testArticle);
+    }
+
+    /**
+     * @Given there is ExistingArticle:
+     */
+    public function thereIsExistingArticle(TableNode $table)
+    {
+        $articleData = $table->getRowsHash();
+        $article     = $this->_getEntityWithData(Article::class, $articleData);
+        /** @var Article $article */
+
+        EntityManager::persist($article);
+        EntityManager::flush();
+
+        PHPUnit::assertGreaterThan(0, $article->getId());
+        $this->_existingArticleId = $article->getId();
+    }
+
+    /**
+     * @Given I am on ExistingArticle edit page
+     */
+    public function iAmOnExistingArticleEditPage()
+    {
+        PHPUnit::assertGreaterThan(0, $this->_existingArticleId);
+        $this->visit('/articles/edit/' . $this->_existingArticleId);
+    }
+
+    /**
+     * @Then the url should match ExistingArticle show page
+     */
+    public function theUrlShouldMatchExistingArticleShowPage()
+    {
+        PHPUnit::assertGreaterThan(0, $this->_existingArticleId);
+        $this->visit('/articles/' . $this->_existingArticleId);
     }
 
     /**

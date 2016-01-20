@@ -53,3 +53,17 @@ Feature: An Article CRUD
     And the response should contain "Test Behat Article Edit"
     And I should see "Sunt hibridaes acquirere azureus, fortis decores."
     And the response should contain "Save Article"
+
+  Scenario: Edit Existing Article
+    Given there is ExistingArticle:
+      | title | Test Behat Article Editable                    |
+      | body  | Countless queens lower reliable, calm planets. |
+    And I am on ExistingArticle edit page
+    When I fill in the following:
+      | title | Behat Article is Modified       |
+      | body  | Space suits view with attitude! |
+    And I press "Save Article"
+    Then the url should match ExistingArticle show page
+    And I should see text matching "\d+. Behat Article is Modified"
+    And I should see "Space suits view with attitude!"
+    And I should see "Tags:"

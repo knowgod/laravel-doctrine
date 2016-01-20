@@ -67,3 +67,13 @@ Feature: An Article CRUD
     And I should see text matching "\d+. Behat Article is Modified"
     And I should see "Space suits view with attitude!"
     And I should see "Tags:"
+
+  Scenario: Delete Existing Article
+    Given there is ExistingArticle:
+      | title | Test Behat Article Deletable                    |
+      | body  | The solid starship finally transforms the dosi. |
+    And I am on ExistingArticle show page
+    When I follow "Delete"
+    And I follow ExistingArticle show page
+    Then the url should match "/articles"
+    And there is no ExistingArticle

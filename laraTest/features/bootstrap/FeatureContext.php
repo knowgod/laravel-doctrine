@@ -69,6 +69,36 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
+     * EntityManager will return Article mock each time when it's searched by a given ID
+     *
+     * @param TableNode $table
+     * @return Article
+     */
+    protected function _getMockArticle(TableNode $table)
+    {
+        $articleData = $table->getRowsHash();
+        $article     = $this->_getEntityWithData(Article::class, $articleData);
+
+        $this->_mockEntityManagerFacade(ArticleRepository::class, Article::class);
+
+        EntityManager::shouldReceive('find')
+            ->with(Article::class, $articleData['id'])
+            ->andReturn($article);
+
+        return EntityManager::find(Article::class, $articleData['id']);
+    }
+
+    /**
+     * @Then there is no ExistingArticle
+     */
+    public function thereIsNoExistingArticle()
+    {
+        PHPUnit::assertGreaterThan(0, $this->_existingArticleId);
+        $article = EntityManager::find(Article::class, $this->_existingArticleId);
+        PHPUnit::assertEmpty($article);
+    }
+
+    /**
      * @Given there is ExistingArticle:
      */
     public function thereIsExistingArticle(TableNode $table)
@@ -82,6 +112,16 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 
         PHPUnit::assertGreaterThan(0, $article->getId());
         $this->_existingArticleId = $article->getId();
+    }
+
+    /**
+     * @Given I am on ExistingArticle show page
+     * @When I follow ExistingArticle show page
+     */
+    public function iAmOnExistingArticleShowPage()
+    {
+        PHPUnit::assertGreaterThan(0, $this->_existingArticleId);
+        $this->visit('/articles/' . $this->_existingArticleId);
     }
 
     /**
@@ -100,25 +140,5 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     {
         PHPUnit::assertGreaterThan(0, $this->_existingArticleId);
         $this->visit('/articles/' . $this->_existingArticleId);
-    }
-
-    /**
-     * EntityManager will return Article mock each time when it's searched by a given ID
-     *
-     * @param TableNode $table
-     * @return Article
-     */
-    protected function _getMockArticle(TableNode $table)
-    {
-        $articleData = $table->getRowsHash();
-        $article     = $this->_getEntityWithData(Article::class, $articleData);
-
-        $this->_mockEntityManagerFacade(ArticleRepository::class, Article::class);
-
-        EntityManager::shouldReceive('find')
-            ->with(Article::class, $articleData['id'])
-            ->andReturn($article);
-
-        return EntityManager::find(Article::class, $articleData['id']);
     }
 }

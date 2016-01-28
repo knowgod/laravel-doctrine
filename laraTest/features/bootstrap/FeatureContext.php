@@ -153,19 +153,12 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * @When there are :arg2 :arg1
+     * @When there are :count :item
+     * @When I have :count :item
      */
-    public function thereAre($arg1, $arg2)
+    public function thereAre($item, $count)
     {
-        throw new PendingException();
-    }
-
-    /**
-     * @When I have :arg2 :arg1
-     */
-    public function iHave($arg1, $arg2)
-    {
-        throw new PendingException();
+        $this->assertPageMatchesText('#(' . $item . '.*){' . $count . '}#');
     }
 
     /**

@@ -8,4 +8,10 @@
         @endfor
     </div>
 
+    <div>
+        @for($i=0; $i<5; ++$i)
+            "X-Wing"&nbsp;
+        @endfor
+    </div>
+
 @endsection

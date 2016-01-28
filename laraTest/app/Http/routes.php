@@ -46,3 +46,10 @@ Route::get(
         return view('starwars');
     }
 );
+
+Route::get(
+    'starwars/lukeskywalker',
+    function () {
+        return view('starwars/lukeskywalker');
+    }
+);

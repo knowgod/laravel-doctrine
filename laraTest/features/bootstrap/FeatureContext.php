@@ -7,6 +7,7 @@ use App\Doctrination\Testing\EntityManagerTrait;
 use App\Doctrination\Testing\EntityTrait;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use PHPUnit_Framework_Assert as PHPUnit;
@@ -141,4 +142,38 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         PHPUnit::assertGreaterThan(0, $this->_existingArticleId);
         $this->visit('/articles/' . $this->_existingArticleId);
     }
+
+    /**
+     * @Given I am :name
+     */
+    public function iAm($name)
+    {
+        $characterPage    = strtolower(str_replace(' ', '', $name));
+        $this->visit('/starwars/' . $characterPage);
+    }
+
+    /**
+     * @When there are :arg2 :arg1
+     */
+    public function thereAre($arg1, $arg2)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When I have :arg2 :arg1
+     */
+    public function iHave($arg1, $arg2)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should win
+     */
+    public function iShouldWin()
+    {
+        throw new PendingException();
+    }
+
 }

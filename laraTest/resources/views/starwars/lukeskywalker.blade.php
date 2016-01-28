@@ -14,4 +14,6 @@
         @endfor
     </div>
 
+    <h1>Luke Skywalker wins!</h1>
+
 @endsection

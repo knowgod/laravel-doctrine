@@ -7,7 +7,6 @@ use App\Doctrination\Testing\EntityManagerTrait;
 use App\Doctrination\Testing\EntityTrait;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use PHPUnit_Framework_Assert as PHPUnit;
@@ -27,6 +26,8 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      * @var integer
      */
     protected $_existingArticleId;
+
+    protected $_character;
 
     /**
      * Initializes context.
@@ -148,6 +149,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iAm($name)
     {
+        $this->_character = $name;
         $characterPage    = strtolower(str_replace(' ', '', $name));
         $this->visit('/starwars/' . $characterPage);
     }
@@ -166,7 +168,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iShouldWin()
     {
-        throw new PendingException();
+        $this->assertPageContainsText($this->_character . ' wins');
     }
 
 }

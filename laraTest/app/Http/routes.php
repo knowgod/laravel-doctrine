@@ -39,3 +39,10 @@ Route::get('articles/edit/{id}', 'Doctrination\ArticlesController@edit');
 
 Route::post('articles', 'Doctrination\ArticlesController@store');
 Route::post('articles/filter', 'Doctrination\ArticlesController@index');
+
+Route::get(
+    'starwars',
+    function () {
+        return view('starwars');
+    }
+);
